@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+      integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-text">
+          <h1>Lorem ipsum dolor sit consectetur adipiscing</h1>
+          <p>Lorem ipsum dolor sit amet consectetur</p>
+          <a href="register.html"
+            ><button style="float: left; padding: 0.5em 4.5em">
+              Sign Up
+            </button></a
+          >
+        </div>
+      </div>
+
+      <div class="hero-right"></div>
+    </div>
+    <header>
+      <img
+        src="https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png"
+        alt="google"
+      />
+
+      <nav>
+        <a href="login.html" class="special">Login</a>
+        <a href="register.html">Sign Up</a>
+      </nav>
+    </header>
+
+    <hr />
+
+    <main>
+      <div class="container">
+        <form name="login">
+          <h1>Login</h1>
+
+          <p>Email</p>
+          <input
+            type="email"
+            placeholder="example@example.com"
+            name="email"
+            id="email"
+            required
+          />
+          <p>Password</p>
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            id="password"
+            required
+          />
+          <div class="space"></div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      document.forms.login.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = e.target.elements.email.value.toLowerCase();
+        const password = e.target.elements.password.value;
+
+        fetch("https://backend-test-js-eovio.ondigitalocean.app/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status.toLowerCase().includes("ok")) {
+              localStorage.setItem("user", data.id);
+              location.replace("dashboard.html");
+            } else {
+              const notification = document.createElement("div");
+              notification.classList.add("notification");
+              notification.textContent = data.status;
+              const delButton = document.createElement("button");
+              delButton.className = "remove";
+              delButton.textContent = "X";
+              delButton.addEventListener("click", () => notification.remove());
+              notification.prepend(delButton);
+              notification.style.border =
+                "1px solid rgba(168, 152, 152, 0.557)";
+              notification.style.borderRadius = "5px";
+              notification.style.padding = "1em";
+              notification.style.backgroundColor = "rgba(221, 218, 218, 0.557)";
+              document.forms.login.prepend(notification);
+
+              e.target.elements.password.value = "";
+            }
+          })
+          .catch((error) => console.log(error));
+      });
+    </script>
+  </body>
+</html>

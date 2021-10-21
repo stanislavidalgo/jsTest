@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+      integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <img
+        src="https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png"
+        alt="google"
+      />
+
+      <nav>
+        <a href="add.html" class="special">Add</a>
+        <a href="register.html" id="logout">Log Out</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-text">
+          <h1>Lorem ipsum dolor sit consectetur adipiscing</h1>
+          <p>Lorem ipsum dolor sit amet consectetur</p>
+          <button style="float: left; padding: 0.5em 4.5em">Go Down</button>
+        </div>
+      </div>
+
+      <div class="hero-right2"></div>
+    </div>
+    <main>
+      <div class="container">
+        <div class="titleSearch">
+          <h1>Your Courses</h1>
+          <input
+            type="search"
+            name="search"
+            class="search"
+            placeholder="search"
+          />
+        </div>
+
+        <div class="courses" id="courses"></div>
+      </div>
+    </main>
+    <div class="container">
+      <div class="middle">
+        <button class="middleBtn">All Courses</button>
+      </div>
+    </div>
+    <script>
+      // const input = document.querySelector('input');
+      // input.addEventListener('keyup', () =>{
+
+      // })
+      const user = localStorage.getItem("user");
+      if (!user) {
+        location.replace("login.html");
+      }
+
+      document.getElementById("logout").addEventListener("click", () => {
+        localStorage.removeItem("user");
+      });
+
+      fetch("https://backend-test-js-eovio.ondigitalocean.app/getsome/:id")
+        .then((res) => res.json())
+        .then((data) => displayCourses(data, courses));
+
+      function displayCourses(array, location) {
+        array.forEach((item) => {
+          const course = document.createElement("div");
+          course.className = "course";
+
+          const picture = document.createElement("img");
+          picture.src = item.image;
+          picture.alt = item.title;
+
+          const h2 = document.createElement("h2");
+          h2.textContent = item.title;
+
+          const specific = document.createElement("div");
+          specific.className = "specific";
+
+          const p = document.createElement("p");
+          p.className = "game";
+          p.textContent = game;
+
+          const p2 = document.createElement("p");
+          p2.className = "length";
+          p2.textContent = length;
+
+          const p3 = document.createElement("p");
+          p3.className = "beginner";
+          p3.textContent = beginner;
+
+          const p4 = document.createElement("p");
+          p4.className = "cc";
+          p4.textContent = cc;
+
+          const price = document.createElement("div");
+          price.className = "price";
+
+          const p5 = document.createElement("p");
+          p5.className = "oldPrice";
+          p5.textContent = oldPrice;
+
+          const p6 = document.createElement("p");
+          p6.className = "newPrice";
+          p6.textContent = newPrice;
+
+          price.append(p5, p6);
+
+          specific.append(p, p2, p3, p4);
+
+          course.append(picture, h2, specific, price);
+
+          const courses = document.getElementById("courses");
+          courses.append(course);
+
+          console.log(courses);
+        });
+      }
+    </script>
+  </body>
+</html>

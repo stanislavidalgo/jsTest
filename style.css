@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+header {
+  text-align: center;
+  margin: 1rem;
+}
+
+header a {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background-color: #0db69d;
+  color: white;
+  border-radius: 25px;
+  border: none;
+  padding: 0.5em 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+header a.special {
+  background-color: #fff;
+  color: black;
+  padding: 0 1em 0 0;
+}
+
+header img {
+  max-width: 10rem;
+}
+
+nav {
+  margin: 1rem;
+}
+
+hr {
+  border: 2px solid #0db69d;
+  margin: 1em 0;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+h1 {
+  font-family: "Open Sans", sans-serif;
+  color: #0db69d;
+}
+
+p {
+  font-weight: 900;
+}
+
+form {
+  margin: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid rgba(136, 122, 122, 0.561);
+}
+
+/* video inputas su paragrafu po vienu borderiu ==============*/
+
+.videoMin {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(136, 122, 122, 0.561);
+  border-radius: 6px;
+}
+
+.videoMin input {
+  border: none;
+}
+
+.videoMin p {
+  display: flex;
+  align-items: center;
+  background-color: rgba(155, 147, 147, 0.171);
+  color: gray;
+  margin: 0;
+  padding: 5px 1em;
+}
+
+/* checkboxai =================================== */
+
+.checks {
+  float: left;
+  width: 100%;
+}
+
+.checks input {
+  width: 1em;
+  vertical-align: middle;
+}
+
+.space {
+  margin: 1rem;
+}
+
+button {
+  background-color: #0db69d;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7em 2rem;
+  float: right;
+  cursor: pointer;
+  transition: 0.2s all ease-out;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.middle {
+  display: flex;
+  justify-content: center;
+}
+
+.middleBtn {
+  float: none;
+  padding: 0.7em 3rem;
+}
+.remove {
+  padding: 0;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: rgb(204, 192, 192);
+}
+
+.hero {
+  display: flex;
+}
+
+.hero-left {
+  display: flex;
+  align-items: center;
+  background: rgb(19, 26, 34);
+}
+
+.hero-text {
+  margin: 1em;
+}
+
+.hero-text h1 {
+  color: rgb(185, 180, 180);
+}
+
+.hero-text p {
+  font-family: monospace;
+  color: rgba(145, 139, 139, 0.609);
+}
+
+.titleSearch {
+  margin: 1.5em;
+}
+
+.search {
+  width: 100%;
+}
+
+.course {
+  margin: 1.5rem;
+  max-width: 20rem;
+}
+
+.course img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+@media (min-width: 660px) {
+  .container {
+    margin: 0 auto;
+    max-width: 80%;
+  }
+
+  .titleSearch {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0 1rem 0;
+  }
+
+  .titleSearch {
+    margin: 1.5em;
+  }
+  .titleSearch h1 {
+    margin: 0;
+  }
+  .search {
+    width: 50%;
+  }
+
+  .courses {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  /* Add course kainu inputai ======================*/
+
+  .between {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .left {
+    width: 50%;
+    margin-right: 5px;
+  }
+  .right {
+    width: 50%;
+    margin-left: 5px;
+  }
+
+  .hero {
+    min-height: 70vh;
+  }
+
+  .hero-left {
+    width: 50%;
+  }
+
+  .hero-right {
+    background-image: url("https://i.pinimg.com/originals/00/98/f3/0098f392b1106c6d2cfe5a72294cf721.jpg");
+    background-size: cover;
+    width: 50%;
+  }
+
+  .hero-right2 {
+    background-image: url("https://cdn-media-1.freecodecamp.org/images/1*tO6yh-odg-YDLazUQ6FWVQ.jpeg");
+    background-size: cover;
+    width: 50%;
+  }
+}

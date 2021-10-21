@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add course</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+      integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg=="
+      crossorigin="anonymous"
+    />
+    
+  </head>
+  <body>
+    <header>
+      <img
+        src="https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png"
+        alt="google"
+      />
+
+      <nav>
+        <a href="dashboard.html" class="special">Dashboard</a>
+        <a href="register.html">Logout</a>
+      </nav>
+    </header>
+
+    <hr />
+
+    <main>
+      <div class="container">
+        <form name="addCourse">
+          <h1>Add a Course</h1>
+          <p>Course Name</p>
+          <input type="text" placeholder="Enter course name" name="title" required />
+          <p>Image</p>
+          <input type="url" placeholder="http://image.png" name="image" required/>
+          <div class="between">
+            <div class="left">
+              <p>Old Price(Eur)</p>
+              <input type="number" placeholder="ex: 20" name="old" required />
+            </div>
+
+            <div class="right">
+              <p>New Price(Eur)</p>
+              <input type="number" placeholder="ex: 10" name="new" required />
+            </div>
+          </div>
+          <p>Video Lenght</p>
+          <div class="videoMin">
+            <input type="text" placeholder="ex: 5min" name="videoMin" required/>
+            <p class="minutes">minutes</p>
+          </div>
+
+          <p>Check all that apply</p>
+          <div class="checks">
+            <div class="check1">
+                <input type="checkbox"  name="game"/><label for="">It's a game</label>
+            </div>
+
+            <div class="check2" >
+                <input type="checkbox" name="beginner" /><label for="">It's for beginers</label>
+            </div>
+    
+            <div class="check3" >
+                <input type="checkbox" name="cc" /><label for="">It's CC</label>
+            </div>
+        
+
+          <div class="space"></div>
+
+          <button type="submit" style="float: left">Add Course</button>
+        </form>
+      </div>
+    </main>
+    
+
+    <script>
+
+      document.forms.addCourse.addEventListener("submit",(e)=>{
+        (e).preventDefault();
+
+
+        const userid = localStorage.getItem("user");
+        const title = e.target.elements.title.value;
+        const image = e.target.elements.image.value;
+
+        const oldPrice = Number(e.target.elements.old.value);
+        const newPrice = Number(e.target.elements.new.value);
+        const price = {
+          old: oldPrice,
+          new: newPrice,
+        }
+
+        const length = Number(e.target.elements.videoMin.value);
+
+        const game = e.target.elements.game.checked;
+        const beginner = e.target.elements.beginner.checked;
+        const cc = e.target.elements.cc.checked;
+
+        const params = {
+        game: game,
+        beginner: beginner,
+        cc: cc
+        }
+
+
+
+if( userid && title && image && price.old && price.new && params){
+          fetch("https://backend-test-js-eovio.ondigitalocean.app/add", {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({userid, title, image, price, length, params}),
+          })
+          .then((res)=>res.json())
+          .then((data)=> {
+              const notification = document.createElement("div");
+              notification.classList.add("notification");
+              notification.textContent = "Course added successfully";
+              const delButton = document.createElement("button");
+              delButton.className = "remove";
+              delButton.textContent = "X";
+              delButton.addEventListener("click", () => notification.remove());
+              notification.prepend(delButton);
+              notification.style.border =
+                "1px solid rgba(168, 152, 152, 0.557)";
+              notification.style.borderRadius = "5px";
+              notification.style.padding = "1em";
+              notification.style.backgroundColor = "rgba(221, 218, 218, 0.557)";
+              document.forms.addCourse.prepend(notification);});
+
+              e.target.elements.title.value = ""
+              e.target.elements.image.value = ""
+              e.target.elements.old.value = ""
+              e.target.elements.new.value = ""
+              e.target.elements.videoMin.value = ""
+              e.target.elements.game.checked = ""
+              e.target.elements.beginner.checked = ""
+              e.target.elements.cc.checked = ""
+        }
+      });
+     
+
+    </script>
+
+  </body>
+</html>
